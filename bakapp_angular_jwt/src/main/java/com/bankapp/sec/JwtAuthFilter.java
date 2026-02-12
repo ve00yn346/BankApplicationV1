@@ -32,27 +32,31 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 		String token = null;
 		String username = null;
 
-		if (authHeader != null && authHeader.startsWith("Bearer ")) {
-			token = authHeader.substring(7);
-			username = jwtService.extractUsername(token);
-		}
-
-		if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-			UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-			// username is correct , and we are going to get UNAuthToeken and put that in
-			// SecurityContextHolder ....
-			if (jwtService.validateToken(token, userDetails)) {
-
-				UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,
-						null, userDetails.getAuthorities());
-
-				// authToken.setDetails(new
-				// WebAuthenticationDetailsSource().buildDetails(request));
-
-				SecurityContextHolder.getContext().setAuthentication(authToken);
-
+		try {
+			if (authHeader != null && authHeader.startsWith("Bearer ")) {
+				token = authHeader.substring(7);
+				username = jwtService.extractUsername(token);
 			}
 
+			if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+				UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+				// username is correct , and we are going to get UNAuthToeken and put that in
+				// SecurityContextHolder ....
+				if (jwtService.validateToken(token, userDetails)) {
+
+					UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(userDetails,
+							null, userDetails.getAuthorities());
+
+					// authToken.setDetails(new
+					// WebAuthenticationDetailsSource().buildDetails(request));
+
+					SecurityContextHolder.getContext().setAuthentication(authToken);
+
+				}
+
+			}
+		} catch (RuntimeException ex) {
+			SecurityContextHolder.clearContext();
 		}
 		filterChain.doFilter(request, response);
 	}
