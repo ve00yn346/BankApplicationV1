@@ -1,21 +1,27 @@
 <section class="panel form-panel mt-4">
   <h3 class="page-title">Sign in to TrustBank</h3>
 
-  <form (ngSubmit)="onSubmit()" class="d-grid gap-3">
+  <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="d-grid gap-3" novalidate>
     <div>
       <label class="form-label">Username</label>
-      <input type="text" class="form-control" [(ngModel)]="username" name="username" required>
+      <input type="text" class="form-control" #username="ngModel" [(ngModel)]="username" name="username" required minlength="3" maxlength="30">
+      <small class="text-danger" *ngIf="username.invalid && (username.touched || loginForm.submitted)">
+        Username must be between 3 and 30 characters.
+      </small>
     </div>
 
     <div>
       <label class="form-label">Password</label>
-      <input type="password" class="form-control" [(ngModel)]="password" name="password" required>
+      <input type="password" class="form-control" #password="ngModel" [(ngModel)]="password" name="password" required minlength="6" maxlength="40">
+      <small class="text-danger" *ngIf="password.invalid && (password.touched || loginForm.submitted)">
+        Password must be between 6 and 40 characters.
+      </small>
     </div>
 
     <div class="alert alert-danger py-2 mb-0" *ngIf="error">
       {{ error }}
     </div>
 
-    <button type="submit" class="btn btn-primary">Login</button>
+    <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
   </form>
 </section>

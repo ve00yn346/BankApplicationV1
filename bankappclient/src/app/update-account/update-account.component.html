@@ -3,7 +3,7 @@
 
   <p class="info-note">Name and balance are read-only for safety. Only contact information can be edited.</p>
 
-  <form (ngSubmit)="onSubmit()" class="d-grid gap-3">
+  <form #updateAccountForm="ngForm" (ngSubmit)="onSubmit(updateAccountForm)" class="d-grid gap-3" novalidate>
     <div>
       <label class="form-label">Name</label>
       <input type="text" class="form-control" [(ngModel)]="account.name" name="name" readonly>
@@ -16,14 +16,20 @@
 
     <div>
       <label class="form-label">Email</label>
-      <input type="email" class="form-control" [(ngModel)]="account.email" name="email" required>
+      <input type="email" class="form-control" #email="ngModel" [(ngModel)]="account.email" name="email" required email>
+      <small class="text-danger" *ngIf="email.invalid && (email.touched || updateAccountForm.submitted)">
+        Enter a valid email address.
+      </small>
     </div>
 
     <div>
       <label class="form-label">Phone</label>
-      <input type="text" class="form-control" [(ngModel)]="account.phone" name="phone" required>
+      <input type="text" class="form-control" #phone="ngModel" [(ngModel)]="account.phone" name="phone" required pattern="^[0-9]{10}$">
+      <small class="text-danger" *ngIf="phone.invalid && (phone.touched || updateAccountForm.submitted)">
+        Phone number must be exactly 10 digits.
+      </small>
     </div>
 
-    <button type="submit" class="btn btn-primary">Save Changes</button>
+    <button type="submit" class="btn btn-primary" [disabled]="updateAccountForm.invalid">Save Changes</button>
   </form>
 </section>

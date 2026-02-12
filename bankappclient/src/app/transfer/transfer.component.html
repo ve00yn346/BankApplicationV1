@@ -1,22 +1,34 @@
 <section class="panel form-panel">
   <h3 class="page-title">Transfer Funds</h3>
 
-  <form (ngSubmit)="onSubmit()" class="d-grid gap-3">
+  <form #transferForm="ngForm" (ngSubmit)="onSubmit(transferForm)" class="d-grid gap-3" novalidate>
     <div>
       <label class="form-label">From Account Id</label>
-      <input type="number" class="form-control" [(ngModel)]="fromAccountId" name="fromAccountId" required>
+      <input type="number" class="form-control" #fromAccountId="ngModel" [(ngModel)]="fromAccountId" name="fromAccountId" required min="1" step="1">
+      <small class="text-danger" *ngIf="fromAccountId.invalid && (fromAccountId.touched || transferForm.submitted)">
+        From account id must be a positive number.
+      </small>
     </div>
 
     <div>
       <label class="form-label">To Account Id</label>
-      <input type="number" class="form-control" [(ngModel)]="toAccountId" name="toAccountId" required>
+      <input type="number" class="form-control" #toAccountId="ngModel" [(ngModel)]="toAccountId" name="toAccountId" required min="1" step="1">
+      <small class="text-danger" *ngIf="toAccountId.invalid && (toAccountId.touched || transferForm.submitted)">
+        To account id must be a positive number.
+      </small>
+      <small class="text-danger" *ngIf="fromAccountId.value && toAccountId.value && fromAccountId.value === toAccountId.value">
+        From and To account ids cannot be same.
+      </small>
     </div>
 
     <div>
       <label class="form-label">Amount</label>
-      <input type="number" class="form-control" [(ngModel)]="amount" name="amount" required>
+      <input type="number" class="form-control" #amount="ngModel" [(ngModel)]="amount" name="amount" required min="1" step="0.01">
+      <small class="text-danger" *ngIf="amount.invalid && (amount.touched || transferForm.submitted)">
+        Transfer amount must be greater than 0.
+      </small>
     </div>
 
-    <button type="submit" class="btn btn-primary">Submit Transfer</button>
+    <button type="submit" class="btn btn-primary" [disabled]="transferForm.invalid || fromAccountId.value === toAccountId.value">Submit Transfer</button>
   </form>
 </section>
