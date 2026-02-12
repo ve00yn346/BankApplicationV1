@@ -1,6 +1,7 @@
 package com.bankapp.service;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,7 +29,10 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public List<AccountResponse> getAll() {
-		return accountRepo.findAll().stream().map(accountMapper::toResponse).toList();
+		return accountRepo.findAll().stream()
+				.sorted(Comparator.comparingInt(Account::getId))
+				.map(accountMapper::toResponse)
+				.toList();
 	}
 
 	@Override
@@ -98,6 +102,8 @@ public class AccountServiceImpl implements AccountService {
 	public void deleteAccount(int id) {
 		Account accountToDelete = getAccountEntity(id);
 		accountRepo.delete(accountToDelete);
+		accountRepo.compactIdsAfterDelete(id);
+		accountRepo.resetAutoIncrement();
 	}
 
 
