@@ -1,53 +1,27 @@
-<div class="col-md-6 offset-md-3">
-  <h3>Create Account</h3>
-  <form (ngSubmit)="onSubmit()">
+<section class="panel form-panel">
+  <h3 class="page-title">Create New Account</h3>
 
-    <div class="form-group">
-      <label>Name</label>
-      <input
-        type="text"
-        class="form-control"
-        [(ngModel)]="account.name"
-        name="name">
+  <form (ngSubmit)="onSubmit()" class="d-grid gap-3">
+    <div>
+      <label class="form-label">Name</label>
+      <input type="text" class="form-control" [(ngModel)]="account.name" name="name">
     </div>
 
-    <div class="form-group">
-      <label>Initial Balance</label>
-      <input
-        type="number"
-        class="form-control"
-        [(ngModel)]="account.balance"
-        name="balance">
+    <div>
+      <label class="form-label">Initial Balance</label>
+      <input type="number" class="form-control" [(ngModel)]="account.balance" name="balance">
     </div>
 
-
-    <div class="form-group">
-      <label>Email</label>
-      <input
-        type="email"
-        class="form-control"
-        [(ngModel)]="account.email"
-        name="email">
+    <div>
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" [(ngModel)]="account.email" name="email">
     </div>
 
-
-    <div class="form-group">
-      <label>Phone</label>
-      <input
-        type="text"
-        class="form-control"
-        [(ngModel)]="account.phone"
-        name="phone">
+    <div>
+      <label class="form-label">Phone</label>
+      <input type="text" class="form-control" [(ngModel)]="account.phone" name="phone">
     </div>
 
-
-    <br>
-
-
-    <button type="submit" class="btn btn-success">
-      Submit
-    </button>
-
-
+    <button type="submit" class="btn btn-primary">Create Account</button>
   </form>
-</div>
+</section>
