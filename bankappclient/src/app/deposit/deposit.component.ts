@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { AccountService } from '../services/account.service';
 import { Router } from '@angular/router';
 import { DepositRequest } from '../model/deposit-request';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-deposit',
@@ -20,7 +20,12 @@ export class DepositComponent {
     private router: Router
   ) {}
 
-  onSubmit(): void {
+  onSubmit(form: NgForm): void {
+    if (form.invalid) {
+      form.control.markAllAsTouched();
+      return;
+    }
+
     const request: DepositRequest = {
       accountId: this.accountId,
       amount: this.amount
@@ -30,5 +35,5 @@ export class DepositComponent {
       this.router.navigate(['/accounts']);
     });
   }
-  
+
 }

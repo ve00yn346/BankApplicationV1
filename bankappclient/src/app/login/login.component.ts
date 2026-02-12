@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { AuthenticationService } from '../services/authentication.service';
 import { Router } from '@angular/router';
 
@@ -22,7 +22,12 @@ export class LoginComponent {
     private router: Router
   ) {}
 
-onSubmit(): void {
+onSubmit(form: NgForm): void {
+  if (form.invalid) {
+    form.control.markAllAsTouched();
+    return;
+  }
+
   this.authService
     .authenticate(this.username, this.password)
     .subscribe({
