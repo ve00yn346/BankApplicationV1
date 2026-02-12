@@ -1,0 +1,49 @@
+<!-- <div class="text-center">
+  <router-outlet></router-outlet>
+</div> -->
+<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <ul class="navbar-nav">
+    <li class="nav-item">
+      <a routerLink="accounts" routerLinkActive="active" class="nav-link">
+        Account List
+      </a>
+    </li>
+
+
+    <li class="nav-item">
+      <a routerLink="create-account" routerLinkActive="active" class="nav-link">
+        Create Account
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a routerLink="deposit" routerLinkActive="active" class="nav-link">
+        Deposit
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a routerLink="withdraw" routerLinkActive="active" class="nav-link">
+        Withdraw
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a routerLink="transfer" routerLinkActive="active" class="nav-link">
+        Transfer
+      </a>
+    </li>
+    
+    <li class="nav-item">
+      <button class="btn btn-danger" (click)="logout()">
+        Logout
+      </button>
+    </li>
+
+  </ul>
+</nav>
+
+
+<div class="text-center">
+  <router-outlet></router-outlet>
+</div>
