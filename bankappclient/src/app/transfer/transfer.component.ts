@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NgIf } from '@angular/common';
 import { AccountService } from '../services/account.service';
 import { Router } from '@angular/router';
 import { TransferRequest } from '../model/transfer-request';
@@ -7,7 +8,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 @Component({
   selector: 'app-transfer',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgIf],
   templateUrl: './transfer.component.html',
   styles: ``
 })
