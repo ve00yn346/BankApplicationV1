@@ -1,47 +1,22 @@
-<div class="col-md-6 offset-md-3">
-  <h3>Transfer</h3>
+<section class="panel form-panel">
+  <h3 class="page-title">Transfer Funds</h3>
 
-
-  <form (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label>From Account Id</label>
-      <input
-        type="number"
-        class="form-control"
-        [(ngModel)]="fromAccountId"
-        name="fromAccountId"
-        required>
+  <form (ngSubmit)="onSubmit()" class="d-grid gap-3">
+    <div>
+      <label class="form-label">From Account Id</label>
+      <input type="number" class="form-control" [(ngModel)]="fromAccountId" name="fromAccountId" required>
     </div>
 
-    <div class="form-group">
-      <label>To Account Id</label>
-      <input
-        type="number"
-        class="form-control"
-        [(ngModel)]="toAccountId"
-        name="toAccountId"
-        required>
+    <div>
+      <label class="form-label">To Account Id</label>
+      <input type="number" class="form-control" [(ngModel)]="toAccountId" name="toAccountId" required>
     </div>
 
-
-    <div class="form-group">
-      <label>Amount</label>
-      <input
-        type="number"
-        class="form-control"
-        [(ngModel)]="amount"
-        name="amount"
-        required>
+    <div>
+      <label class="form-label">Amount</label>
+      <input type="number" class="form-control" [(ngModel)]="amount" name="amount" required>
     </div>
 
-
-    <br>
-
-
-    <button type="submit" class="btn btn-success">
-      Submit
-    </button>
-
-
+    <button type="submit" class="btn btn-primary">Submit Transfer</button>
   </form>
-</div>
+</section>
